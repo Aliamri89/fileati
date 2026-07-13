@@ -47,6 +47,12 @@ export default buildConfig({
     fallbackLanguage: "ar",
   },
   secret: process.env.PAYLOAD_SECRET || "",
+  // Optional: setting this to the site's real origin (e.g. https://tampdf.com)
+  // makes Payload enforce a CSRF origin allowlist for authenticated requests.
+  // Without it, the allowlist is empty and origin-checking is skipped
+  // entirely — safe for this single-admin app, but stricter is better once
+  // the production domain is known.
+  serverURL: process.env.SERVER_URL || undefined,
   typescript: {
     outputFile: path.resolve(dirname, "payload/payload-types.ts"),
   },

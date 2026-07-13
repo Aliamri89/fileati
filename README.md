@@ -18,7 +18,17 @@ npm run dev    # apps/web on http://localhost:3000
 
 **apps/web** needs a host with a **persistent disk** — a VM, a Railway/Fly.io/Render service with a volume attached, or shared/managed Node.js hosting like Hostinger Business — not a serverless/edge platform like Vercel. The admin CMS (Payload) stores its SQLite database (`tampdf.db`) and uploaded media (`media-uploads/`) directly on disk; on serverless hosts that filesystem is ephemeral/read-only, so every deploy or cold start would silently wipe posts, settings, and uploaded images. Mount a persistent volume covering both paths (or point `DATABASE_URI` at that volume) before going live.
 
-Required env vars in production (see `apps/web/.env.example`): `PAYLOAD_SECRET` (long random string, unique per environment — the app refuses to start without it) and `DATABASE_URI` (SQLite path on the persistent volume).
+### Environment variables
+
+See `apps/web/.env.example` for the canonical, commented list. This app has no traditional external database service (SQLite is a file), and no `NEXT_PUBLIC_*` variables — the site's public URL is a compile-time constant in `packages/config/src/index.ts`, not an env var.
+
+| Variable | Required? | What it is |
+| --- | --- | --- |
+| `PAYLOAD_SECRET` | **Required** | Long random string used to sign Payload's auth tokens/cookies. Must be generated (not copied from anywhere) — e.g. `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`. Unique per environment; the app throws `Error: missing secret key` at startup if it's unset. |
+| `DATABASE_URI` | **Required** | libSQL client URL for the SQLite database file, e.g. `file:./tampdf.db` or an absolute path. Not a database connection string in the traditional sense — there's no database server to provision, just a file path. In production this must point to a location on **persistent** storage that survives redeploys (see below), or every deploy wipes all CMS content. |
+| `SERVER_URL` | Optional | The site's real public origin, e.g. `https://tampdf.com` (no trailing path). Enables Payload's CSRF origin allowlist for authenticated requests. Safe to leave unset for this single-admin app; recommended once the production domain is live. |
+
+Set `PAYLOAD_SECRET` and `DATABASE_URI` in Hostinger's Node.js app environment-variables panel (not committed to git — they're per-environment secrets/config). No other env vars are read anywhere in this codebase.
 
 No Docker and no system-level dependencies (like LibreOffice) are required anywhere in this project — every tool runs in the browser, and Payload CMS runs inside the same Next.js process. This makes the app deployable on managed/shared Node.js hosting without root access.
 

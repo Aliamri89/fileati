@@ -9,7 +9,10 @@ import { getStaticPageContent, getStaticPageMetadata, type StaticPageKey } from 
 
 interface Fallback {
   title: string;
+  /** Short summary — also used as the SEO meta description, so keep it a single sentence. */
   intro: string;
+  /** Full fallback body paragraphs shown on the page itself. Defaults to just `[intro]` when omitted. */
+  body?: string[];
 }
 
 /**
@@ -43,9 +46,12 @@ export function createStaticCmsPage(
     const doc = await getStaticPageContent(key, locale);
 
     if (!doc) {
+      const paragraphs = fallback.body ?? [fallback.intro];
       return (
-        <StaticPage locale={locale} title={fallback.title} isPlaceholder>
-          <p>{fallback.intro}</p>
+        <StaticPage locale={locale} title={fallback.title} isPlaceholder={!fallback.body}>
+          {paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </StaticPage>
       );
     }

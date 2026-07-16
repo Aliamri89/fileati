@@ -26,7 +26,6 @@ const en = {
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
     cookiePolicy: "Cookie Policy",
-    disclaimer: "Disclaimer",
   },
   staticPages: {
     note: "This page is a placeholder — full content is on its way.",
@@ -58,17 +57,20 @@ const en = {
     termsOfService: {
       title: "Terms of Service",
       intro:
-        "Our terms of service, outlining the rules and guidelines for using TAMPDF, will be published here soon.",
+        "These Terms of Service govern your use of TAMPDF's tools and website, including our disclaimer of warranties and limitation of liability.",
+      body: [
+        "By accessing or using TAMPDF, you agree to be bound by these Terms of Service. If you do not agree, please do not use our tools.",
+        "TAMPDF provides free, browser-based tools for merging, compressing, converting, and rotating PDFs and images. All processing happens locally in your browser — your files are never uploaded to our servers.",
+        'Disclaimer of Warranties. TAMPDF\'s tools are provided "as is" and "as available," without warranties of any kind, whether express or implied, including warranties of accuracy, reliability, merchantability, or fitness for a particular purpose. We do not guarantee that the tools will be error-free, uninterrupted, or compatible with every file, browser, or device.',
+        "Limitation of Liability. To the fullest extent permitted by law, TAMPDF and its owners shall not be liable for any indirect, incidental, special, or consequential damages — including but not limited to data loss, file corruption, or business interruption — arising from your use of, or inability to use, our tools.",
+        "You are solely responsible for keeping backups of your original files and for verifying the accuracy and integrity of any converted or processed output before relying on it. Because all processing happens locally in your browser, TAMPDF has no access to your files and cannot recover lost or corrupted files on your behalf.",
+        "We may update these Terms of Service from time to time. Continued use of TAMPDF after changes are posted constitutes acceptance of the revised terms.",
+      ],
     },
     cookiePolicy: {
       title: "Cookie Policy",
       intro:
         "Details about the cookies and similar technologies TAMPDF uses will be published here soon.",
-    },
-    disclaimer: {
-      title: "Disclaimer",
-      intro:
-        "A full disclaimer covering the limitations of TAMPDF's tools and services will be published here soon.",
     },
   },
   dropzone: {
@@ -226,7 +228,6 @@ const ar: typeof en = {
     privacyPolicy: "سياسة الخصوصية",
     termsOfService: "شروط الخدمة",
     cookiePolicy: "سياسة ملفات تعريف الارتباط",
-    disclaimer: "إخلاء المسؤولية",
   },
   staticPages: {
     note: "هذه الصفحة مؤقتة — المحتوى الكامل في الطريق قريبًا.",
@@ -255,15 +256,19 @@ const ar: typeof en = {
     },
     termsOfService: {
       title: "شروط الخدمة",
-      intro: "ستُنشر شروط الخدمة الخاصة بنا، الموضحة لقواعد وإرشادات استخدام TAMPDF، هنا قريبًا.",
+      intro: "تحكم شروط الخدمة هذه استخدامك لأدوات وموقع TAMPDF، بما في ذلك إخلاء المسؤولية عن الضمانات وتحديد المسؤولية.",
+      body: [
+        "باستخدامك لموقع TAMPDF، فإنك توافق على الالتزام بشروط الخدمة هذه. إذا كنت لا توافق عليها، فيُرجى عدم استخدام أدواتنا.",
+        "يوفر TAMPDF أدوات مجانية تعمل داخل المتصفح لدمج ملفات PDF وضغطها وتحويلها وتدويرها، إلى جانب أدوات معالجة الصور. تتم جميع عمليات المعالجة محليًا داخل متصفحك، ولا يتم رفع ملفاتك إلى خوادمنا مطلقًا.",
+        'إخلاء المسؤولية عن الضمانات: تُقدَّم أدوات TAMPDF "كما هي" و"كما هي متاحة"، دون أي ضمانات من أي نوع، صريحة كانت أو ضمنية، بما في ذلك ضمانات الدقة أو الموثوقية أو الملاءمة لغرض معين. لا نضمن أن تكون الأدوات خالية من الأخطاء، أو تعمل دون انقطاع، أو متوافقة مع كل ملف أو متصفح أو جهاز.',
+        "تحديد المسؤولية: إلى أقصى حد يسمح به القانون، لا يتحمّل TAMPDF ومالكوه المسؤولية عن أي أضرار غير مباشرة أو عرضية أو تبعية — بما في ذلك على سبيل المثال لا الحصر فقدان البيانات أو تلف الملفات أو انقطاع الأعمال — الناشئة عن استخدامك لأدواتنا أو عدم قدرتك على استخدامها.",
+        "أنت المسؤول الوحيد عن الاحتفاظ بنسخ احتياطية من ملفاتك الأصلية والتحقق من دقة وسلامة أي ملف تم تحويله أو معالجته قبل الاعتماد عليه. وبما أن جميع عمليات المعالجة تتم محليًا داخل متصفحك، فإن TAMPDF لا يملك أي وصول إلى ملفاتك ولا يمكنه استرجاع الملفات المفقودة أو التالفة نيابةً عنك.",
+        "قد نقوم بتحديث شروط الخدمة هذه من وقت لآخر. ويُعدّ استمرارك في استخدام TAMPDF بعد نشر أي تعديلات بمثابة قبول منك لهذه الشروط المُحدَّثة.",
+      ],
     },
     cookiePolicy: {
       title: "سياسة ملفات تعريف الارتباط",
       intro: "سيتم نشر تفاصيل حول ملفات تعريف الارتباط والتقنيات المشابهة التي تستخدمها TAMPDF هنا قريبًا.",
-    },
-    disclaimer: {
-      title: "إخلاء المسؤولية",
-      intro: "سيتم نشر إخلاء مسؤولية كامل يغطي حدود أدوات وخدمات TAMPDF هنا قريبًا.",
     },
   },
   dropzone: {

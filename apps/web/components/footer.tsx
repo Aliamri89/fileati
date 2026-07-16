@@ -75,7 +75,6 @@ export async function Footer({ locale }: { locale: Locale }) {
     { label: dict.footer.privacyPolicy, href: `/${locale}/privacy-policy` },
     { label: dict.footer.termsOfService, href: `/${locale}/terms-of-service` },
     { label: dict.footer.cookiePolicy, href: `/${locale}/cookie-policy` },
-    { label: dict.footer.disclaimer, href: `/${locale}/disclaimer` },
   ];
 
   return (

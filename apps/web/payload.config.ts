@@ -7,6 +7,7 @@ import { en } from "@payloadcms/translations/languages/en";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 
+import { FAQs } from "./payload/collections/FAQs";
 import { Media } from "./payload/collections/Media";
 import { PageVisitEvents } from "./payload/collections/PageVisitEvents";
 import { Posts } from "./payload/collections/Posts";
@@ -35,7 +36,7 @@ export default buildConfig({
       },
     },
   },
-  collections: [Posts, StaticPages, Media, ToolUsageEvents, PageVisitEvents, Users],
+  collections: [Posts, StaticPages, FAQs, Media, ToolUsageEvents, PageVisitEvents, Users],
   globals: [Settings],
   editor: lexicalEditor(),
   // Admin UI chrome (menus, buttons, validation/confirmation messages, dates)

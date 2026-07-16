@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     posts: Post;
     'static-pages': StaticPage;
+    faqs: Faq;
     media: Media;
     'tool-usage-events': ToolUsageEvent;
     'page-visit-events': PageVisitEvent;
@@ -82,6 +83,7 @@ export interface Config {
   collectionsSelect: {
     posts: PostsSelect<false> | PostsSelect<true>;
     'static-pages': StaticPagesSelect<false> | StaticPagesSelect<true>;
+    faqs: FaqsSelect<false> | FaqsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'tool-usage-events': ToolUsageEventsSelect<false> | ToolUsageEventsSelect<true>;
     'page-visit-events': PageVisitEventsSelect<false> | PageVisitEventsSelect<true>;
@@ -249,6 +251,31 @@ export interface StaticPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs".
+ */
+export interface Faq {
+  id: number;
+  question: string;
+  /**
+   * Plain text (line breaks are preserved). Keep answers short and scannable.
+   */
+  answer: string;
+  /**
+   * Lower numbers appear first on the FAQ page.
+   */
+  order: number;
+  status: 'draft' | 'published';
+  /**
+   * Optional. Leave empty for a general question on the main FAQ page, or pick a tool to scope this question to that tool's page.
+   */
+  tool?:
+    | ('compress-pdf' | 'pdf-to-jpg' | 'merge-pdf' | 'rotate-pdf' | 'compress-image' | 'image-to-pdf' | 'rotate-images')
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tool-usage-events".
  */
 export interface ToolUsageEvent {
@@ -333,6 +360,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'static-pages';
         value: number | StaticPage;
+      } | null)
+    | ({
+        relationTo: 'faqs';
+        value: number | Faq;
       } | null)
     | ({
         relationTo: 'media';
@@ -431,6 +462,19 @@ export interface StaticPagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs_select".
+ */
+export interface FaqsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  order?: T;
+  status?: T;
+  tool?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

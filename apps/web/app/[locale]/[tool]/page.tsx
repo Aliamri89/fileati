@@ -142,11 +142,11 @@ export default async function ToolPage({
         </p>
       </Container>
 
-      <Container className="mx-auto max-w-2xl pb-16">
+      <Container maxWidth="2xl" className="pb-16">
         <ToolWorkspace slug={tool.slug} />
       </Container>
 
-      <Container className="mx-auto max-w-2xl pb-16">
+      <Container maxWidth="2xl" className="pb-16">
         <div className="space-y-4 text-foreground/70">
           {tool.longDescription.map((paragraph, i) => (
             <p key={i} className="leading-relaxed">
@@ -156,7 +156,7 @@ export default async function ToolPage({
         </div>
       </Container>
 
-      <Container className="mx-auto max-w-2xl pb-16">
+      <Container maxWidth="2xl" className="pb-16">
         <h2 className="text-xl font-semibold">{dict.tool.faqHeading}</h2>
         <div className="mt-5 space-y-3">
           {tool.faq.map((item, i) => (

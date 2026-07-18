@@ -69,6 +69,23 @@ export default buildConfig({
       ssl: process.env.DATABASE_URI?.includes("supabase.co")
         ? { rejectUnauthorized: false }
         : undefined,
+      // `pg` defaults to max: 10 per Pool instance, and this project's
+      // Supabase plan uses the Session pooler, which hard-caps the whole
+      // project at 15 concurrent connections total, shared across every
+      // process that ever connects — and measured directly against this
+      // database, none of them release their connections when they exit
+      // (confirmed via pg_stat_activity: idle backends from processes
+      // that had already finished were still sitting there minutes
+      // later). A single `next build` alone runs two separate phases
+      // ("Collecting page data" and "Generating static pages"), each
+      // spinning up its own worker processes (see next.config.ts's
+      // experimental.cpus), and each worker's connections stack on top
+      // of the previous phase's instead of replacing them, since nothing
+      // closes them when a worker's phase ends. That accumulation, plus
+      // the live app's own pool needing headroom at the same time, has
+      // to stay comfortably under 15 — not land on it. Keeping this
+      // small directly bounds how much a single build can accumulate.
+      max: 2,
     },
   }),
   // Payload's SharpDependency type is a narrower structural subset of the

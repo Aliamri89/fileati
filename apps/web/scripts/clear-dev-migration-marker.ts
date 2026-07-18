@@ -32,6 +32,12 @@ async function main() {
   }
 
   payload.logger.info(`clear-dev-migration-marker: removed ${docs.length} dev-mode schema-push marker(s).`);
+
+  // Without this, the process exits while the pool's TCP connections are
+  // still open — Supabase's pooler doesn't reclaim those as fast as a
+  // clean disconnect, so every build run leaves connections lingering
+  // toward the project's 15-connection cap instead of releasing them.
+  await payload.destroy();
 }
 
 await main();

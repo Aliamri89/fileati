@@ -15,6 +15,19 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@tampdf/config"],
+  experimental: {
+    // Each static-generation worker is a separate process that opens its
+    // own DB pool (capped at 5, see payload.config.ts) — left at Next's
+    // default (CPU core count), a build can spin up several of these at
+    // once, and none of them get an explicit close() when the worker
+    // exits, so their connections linger at the pooler until it times
+    // them out. Measured directly against this project's Supabase Session
+    // pooler (hard-capped at 15 connections, project-wide): the default
+    // worker count pushed a single build's peak usage to exactly 15, with
+    // zero headroom for the live app running at the same time. Capping
+    // workers at 2 keeps a build's peak well under that ceiling.
+    cpus: 1,
+  },
   // Hostinger's deployment environment (and some other setups) can end up
   // with a second, stale package-lock.json sitting above this monorepo's
   // real root (e.g. a duplicated/legacy checkout in public_html alongside

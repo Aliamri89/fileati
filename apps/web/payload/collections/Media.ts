@@ -1,6 +1,9 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { CollectionConfig } from "payload";
+// TEMPORARY — see payload/lib/temp-media-error-logger.ts for what this is
+// and exactly how to remove it once the Hostinger 503 is root-caused.
+import { logMediaUploadError } from "../lib/temp-media-error-logger";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -10,6 +13,11 @@ export const Media: CollectionConfig = {
   labels: {
     singular: { en: "Media", ar: "وسيط" },
     plural: { en: "Media", ar: "الوسائط" },
+  },
+  // TEMPORARY — remove this `hooks` block together with the import above
+  // when removing the diagnostic logger.
+  hooks: {
+    afterError: [logMediaUploadError],
   },
   access: {
     read: () => true,

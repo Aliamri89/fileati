@@ -20,6 +20,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# runtime diagnostic logs (apps/web/payload/lib/temp-media-error-logger.ts)
+logs/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

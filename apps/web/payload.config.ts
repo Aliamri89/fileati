@@ -86,6 +86,21 @@ export default buildConfig({
       // to stay comfortably under 15 — not land on it. Keeping this
       // small directly bounds how much a single build can accumulate.
       max: 2,
+      // `pg` has no default connection-acquisition timeout — if the pool
+      // can't get a connection (e.g. the project is transiently at
+      // Supabase's 15-connection Session pooler cap from something else
+      // entirely), it waits forever with no error. That's a silent hang,
+      // not a failure: nothing ever throws for Payload to catch or log,
+      // and the request just sits there until the reverse proxy in front
+      // of the app gives up on its own and returns a generic 504 —
+      // exactly the failure mode observed on the live deployment, with
+      // nothing in the app's own error handling to show for it. Bounding
+      // this turns that into a fast, catchable error instead.
+      connectionTimeoutMillis: 8_000,
+      // Same idea for an individual query that starts but never returns
+      // (e.g. blocked on a lock) — bound it instead of letting it hang
+      // indefinitely too.
+      query_timeout: 15_000,
     },
   }),
   // Payload's SharpDependency type is a narrower structural subset of the
